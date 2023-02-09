@@ -90,21 +90,39 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-
+  var value = parseInt(prompt("How many characters would you like your password to contain?"))
+    if (value >= 10 && value <= 65) {
+    alert("Click OK to confirm including special characters")
+    return value
+  } else {
+    alert("Please try again. Number should be more than 10 or less than 65");
+    return getPasswordOptions();
+  }
 }
+var passwordLength= getPasswordOptions();
 
 // Function for getting a random element from an array
 function getRandom(arr) {
-
+  var randomIndex = Math.floor(Math.random() * arr.length);
+  var item = arr[randomIndex];
+  return item
 }
 
 // Function to generate password with user input
 function generatePassword() {
-
+  var password = "";
+  for (var i = 0; i < passwordLength; i++) {
+   password+= getRandom(specialCharacters) + getRandom(numericCharacters) + getRandom(lowerCasedCharacters) + getRandom(upperCasedCharacters)
+  }
+  return password.slice(0, passwordLength);
 }
+var newPassword = generatePassword();
+console.log(newPassword);
+
 
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
+// generateBtn.textContent = "Let's get it on";
 
 // Write password to the #password input
 function writePassword() {
